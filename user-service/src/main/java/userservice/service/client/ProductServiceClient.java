@@ -30,16 +30,17 @@ public class ProductServiceClient {
     ObjectMapper objectMapper;
 
     @SneakyThrows
-    public ProductDto getProductByProductCode(String productCode) {
-        HttpRequest httpRequest = buildHttpRequest(productCode);
+    public ProductDto getProductByProductCode(String productCode, String requestId) {
+        HttpRequest httpRequest = buildHttpRequest(productCode, requestId);
         HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         return objectMapper.readValue(response.body(), ProductDto.class);
     }
 
-    private HttpRequest buildHttpRequest(String productCode) {
+    private HttpRequest buildHttpRequest(String productCode, String requestId) {
         String uri = url + productCode;
         return HttpRequest.newBuilder()
                 .uri(URI.create(uri))
+                .header("X-RequestId", requestId)
                 .timeout(Duration.of(10, SECONDS))
                 .GET()
                 .build();

@@ -45,12 +45,4 @@ public class RequestHandler {
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(responseFlux, OrderDto.class);
     }
-
-    public Mono<ServerResponse> getBestProductByUserIdHandler(ServerRequest serverRequest) {
-        String id = serverRequest.pathVariable("id");
-        Mono<ProductDto> responseFlux = userService.getBestProductByUserId(id);
-        return ServerResponse.ok()
-                .contentType(MediaType.TEXT_EVENT_STREAM)
-                .body(responseFlux, ProductDto.class);
-    }
 }

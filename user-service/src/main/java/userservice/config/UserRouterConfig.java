@@ -30,7 +30,6 @@ public class UserRouterConfig {
                 .POST("mono/add", requestHandler::addUserHandler)
                 .GET("mono/{id}", requestHandler::getUserHandler)
                 .GET("order/{phoneNumber}", requestHandler::getOrdersByPhoneNumberHandler)
-                .GET("{id}", requestHandler::getBestProductByUserIdHandler)
                 .build();
     }
 }
